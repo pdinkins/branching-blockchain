@@ -1,7 +1,9 @@
-'''
-#MENU
-This is a simple module for displaying a menu, making a choice, and calling the linked function.
 
+# MENU
+# displays a menu, user choice, choice function execution.
+
+
+'''
 USE:
     1. import menu
     2. define menu choice functions
@@ -10,7 +12,7 @@ USE:
     4. menu.initialize_menu(**menu_dictionary, **menutitle)
 '''
 
-def display_menu_choices(menu_dictionary, menutitle):
+def initialize_menu(menu_dictionary, menutitle):
     menulist = list(menu_dictionary.keys())
     j = 1
     print('\n' + menutitle, '\n')
@@ -30,5 +32,5 @@ def choose_from_menu(menulist, menu_dictionary):
         print('***invalid choice***')
 
 
-def initialize_menu(menu_dictionary, menutitle):
-    display_menu_choices(menu_dictionary, menutitle)
+def quit_menu():
+    quit()

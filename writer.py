@@ -5,8 +5,7 @@ import csv
 import chain
 
 class NewLedger:
-    # This class creates a new ledger with a given name
-    # Call 'legdername'.file 
+    # This class creates a new ledger file:  'legdername'.file 
     # CALLING THE ENTIRE CLASS WILL GIVE ERRORS
     def __init__(self, name):
         self.name = name
@@ -35,6 +34,8 @@ def ledger_parse(ledger_file_name):
     #TODO: re-work the function to allow for dynamic parsing only 
             needed parts of the ledger to save memory and cpu power
     '''
+    # dump the previous dynamic lists
+    chain.dynamicdump()
     try:
         with open(ledger_file_name) as ledger:
             reader = csv.reader(ledger)

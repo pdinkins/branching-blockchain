@@ -4,6 +4,7 @@
 from blocks import Genesis_Chain, Block
 import chain
 import writer
+import network
 
 
 # generate the genesis block
@@ -11,9 +12,9 @@ def g_g_block():
     genesis_chain_g_block = Genesis_Chain().generate_genesis_block()
     return genesis_chain_g_block
 
-def initailize_new_genesis_chain():
+def initailize_new_genesis_chain(ledgername):
     # input ledger name
-    ledgername = input('ledger name: ')
+    # ledgername = input('ledger name: ')
     # create ledger file and ledger object for filename reference
     ledger = writer.NewLedger(ledgername)
     # generate the genesis block
@@ -63,15 +64,11 @@ def new_block(ledgerfilename):
     # add new block to the ledger
     writer.ledger_constructor(ledger.filename, nblocklist)
 
-    
 
 # determines the length of the blockchain
 def bc_l():
     length = len(chain.blockchain)
     return length
-
-    
-
 
 
 # print the genesis block data
@@ -85,4 +82,5 @@ def print_gblock(gblockname):
 def print_block(blockchainlist, index):
     block = blockchainlist[index]
     print('\n{}\n{}\n{}\n{}'.format(block, block.previous_hash, block.current_hash, block.next_hash))
+
 

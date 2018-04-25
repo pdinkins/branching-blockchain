@@ -1,6 +1,6 @@
 # Stores current blockchain information
 # All storage is dynamic and is determined by the users actions
-
+ 
 
 # contains block objects
 blockchain = []
@@ -12,7 +12,7 @@ n_hash = []     # next hash
 
 
 # clears all data from lists so they can be re-initailized
-def all_list_clear():
+def dynamicdump():
     blockchain.clear()
     p_hash.clear()
     c_hash.clear()

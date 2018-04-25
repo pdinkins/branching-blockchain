@@ -6,18 +6,19 @@ class User:
         self.first = first
         self.last = last
         self.reputation = 0.0
+        self.fullname = self.fullname_construction()
 
-        # fullname
-        def fullname(self):
-            return '{}{}'.format(self.first, self.last)
+    # fullname
+    def fullname_construction(self):
+        return '{}{}'.format(self.first, self.last)
         
-        # method for determining user network location
-        def location(self):
-            pass
+    # method for determining user network location
+    def location(self):
+        pass
         
-        # method for storing user reputation status
-        def reputation_calc(self):
-            category_rep = self.reputation
+    # method for storing user reputation status
+    def reputation_calc(self):
+        category_rep = self.reputation
 
 # Data and functions for ideas
 class Idea:

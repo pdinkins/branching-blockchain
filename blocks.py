@@ -2,7 +2,7 @@
 
 import hashlib as hasher
 import datetime
-
+ 
 
 class Genesis_Block:
     def __init__(self, index, timestamp, data, previous_hash):
