@@ -63,7 +63,7 @@ def start_server():
         conn, addr = soc.accept()
         ip, port = str(addr[0]), str(addr[1])
         print(dt.datetime.now(), 'Accepting connection from ' + ip + ':' + port)
-        print(conn)
+        #print(conn)
         try:
             Thread(target=client_thread, args=(conn, ip, port)).start()
         except:
@@ -79,7 +79,7 @@ def autolog():
     # be this function!!!
     func = inspect.currentframe().f_back.f_code
     # Dump the message + the name of this function to the log.
-    logging.debug("%s in %s:%i" % (
+    logging.debug(dt.datetime.now(), "%s in %s:%i" % (
         func.co_name, 
         func.co_filename, 
         func.co_firstlineno
