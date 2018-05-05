@@ -1,6 +1,6 @@
 # server.py
 import logging
-logging.basicConfig(level=logging.DEBUG, format='%(name)s: %(message)s', )
+logging.basicConfig(level=logging.DEBUG, format='%(message)s', )
 logger = logging.getLogger(__name__)
 import datetime as dt
 
@@ -8,7 +8,7 @@ local_ip = "192.168.1.5"
 n_port = 1234
 
 def catch_input(input_string):  
-    dt.datetime.now(), autolog()
+    autolog()
     return input_string[::-1]
 
 def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
@@ -31,7 +31,7 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     vysl = res.encode("utf8")  # encode the result string
     conn.sendall(vysl)  # send it to client
     conn.close()  # close connection
-    dt.datetime.now(), autolog()
+    autolog()
     print(dt.datetime.now(), 'Connection ' + ip + ':' + port + " ended")
 
 def start_server():
@@ -39,7 +39,7 @@ def start_server():
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # this is for easy starting/killing the app
     soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    dt.datetime.now(), autolog()
+    autolog()
     print(dt.datetime.now(), 'Socket created')
 
     try:
@@ -53,7 +53,7 @@ def start_server():
     #Start listening on socket
     soc.listen(10)
     print(dt.datetime.now(), 'Socket now listening')
-
+    autolog()
     # for handling task in separate jobs we need threading
     from threading import Thread
 
@@ -63,12 +63,13 @@ def start_server():
         conn, addr = soc.accept()
         ip, port = str(addr[0]), str(addr[1])
         print(dt.datetime.now(), 'Accepting connection from ' + ip + ':' + port)
-        #print(conn)
+        autolog()
         try:
             Thread(target=client_thread, args=(conn, ip, port)).start()
         except:
             print(dt.datetime.now(), "Terible error!")
             import traceback
+            autolog()
             traceback.print_exc()
     
     soc.close()
@@ -79,7 +80,8 @@ def autolog():
     # be this function!!!
     func = inspect.currentframe().f_back.f_code
     # Dump the message + the name of this function to the log.
-    logging.debug(dt.datetime.now(), "%s in %s:%i" % (
+    logging.debug("{} {} in {}:{}".format(
+        dt.datetime.now(),
         func.co_name, 
         func.co_filename, 
         func.co_firstlineno
