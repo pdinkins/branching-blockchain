@@ -42,5 +42,5 @@ main_menu = {
 
 
 
-while True:
-    menu.initialize_menu(main_menu, 'BB Main Menu') 
+
+menu.initialize_menu(main_menu, 'BB Main Menu') 

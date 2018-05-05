@@ -10,7 +10,7 @@ import ipfsapi
 
 def ipfs_daemon_init():
     # opens new terminal shell and initailizes the IPFS daemon
-    subprocess.Popen([sys.executable, 'ipfsdaemon.py'], creationflags = subprocess.CREATE_NEW_CONSOLE)
+    subprocess.Popen([sys.executable, 'ipfsdaemon.py'], shell=True)
     # pause to allow ipfs daemon to begin 
     time.sleep(3)
     # print ipfs data and daemon init confirmation
@@ -19,7 +19,7 @@ def ipfs_daemon_init():
 def ipfs_ledger_getter():
     network_hash = input('Network hash>\t')
     ipfs_daemon_init()
-    api = ipfsapi.connect('127.0.0.1', 5001)
+    api = ipfsapi.connect('127.0.0.1', 5002)
     req = requests.get('https://gateway.ipfs.io/ipfs/' + network_hash)
     network_ledger_data = req.text
     print(network_ledger_data)

@@ -24,7 +24,10 @@ def initialize_menu(menu_dictionary, menutitle):
 
 def choose_from_menu(menulist, menu_dictionary):
     try:
-        menuchoice = int(input('\nMenu Choice:  '))
+        try:
+            menuchoice = int(input('\nMenu Choice:  '))
+        except EOFError:
+            return
         menuchoice -= 1
         print()
         menu_dictionary[menulist[menuchoice]]()
