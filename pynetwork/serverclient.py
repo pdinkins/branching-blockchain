@@ -22,3 +22,6 @@ result_bytes = soc.recv(4096) # the number means how the response can be in byte
 result_string = result_bytes.decode("utf8") # the return will be in bytes, so decode
 
 print("data for server> {}".format(result_string))   
+
+if result_string == 'Connection success':
+    soc.send(clients_input[1].encode('utf-8'))

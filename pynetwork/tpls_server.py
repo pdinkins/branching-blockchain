@@ -6,14 +6,17 @@ import datetime as dt
 local_ip = "192.168.1.5"
 n_port = 1234
 trusted_wallet_hash = '56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d'
+handshake = []
 
 def catch_input(input_string):  
+    handshake.clear()
     autolog()
     packet = input_string
     if packet == trusted_wallet_hash:
         cs = 'Connection success'
+        handshake.append(1)
     else:
-
+        handshake.append(0)
         cs = 'ERROR: CONNECTIONS UNSUCCESFUL'
     print(dt.datetime.now(), cs)
     print(dt.datetime.now(), packet)
@@ -38,7 +41,19 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
 
     vysl = res.encode("utf8")  # encode the result string
     conn.sendall(vysl)  # send it to client
-    conn.close()  # close connection
+    if handshake[0] == 1:
+        print(dt.datetime.now(), 'HANDSHAKE SUCCESS')
+        data_bytes = conn.recv(MAX_BUFFER_SIZE)
+        siz = sys.getsizeof(input_from_client_bytes)
+        if  siz >= MAX_BUFFER_SIZE:
+            print("The length of input is probably too long: {}".format(siz))
+        
+        data = data_bytes.decode('utf-8')
+        print(dt.datetime.now(), data)
+       
+    else:
+        conn.close()  # close connection
+    
     autolog()
     print(dt.datetime.now(), 'Connection ' + ip + ':' + port + " ended")
 
