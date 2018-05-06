@@ -8,6 +8,9 @@ import writer
 import network
 import generate
 import chain
+import subprocess
+import sys
+import time
 
 
 ipfsid = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
@@ -42,10 +45,29 @@ def upload_g_chain():
 
 
 def ipfs_ledger_deconstruct():
-    data, nhash = network.ipfs_ledger_getter()
+    data, nhash = ipfs_ledger_getter()
     #generate.initailize_new_genesis_chain(nhash)
     ledger = writer.Ledger(nhash)
     with open(ledger.filename, 'wb') as file:
         file.write(data)
     writer.ledger_parse(ledger.filename)
     print(chain.c_hash)
+
+
+def ipfs_daemon_init():
+    # opens new terminal shell and initailizes the IPFS daemon
+    subprocess.Popen([sys.executable, 'ipfsdaemon.py'], shell=True)
+    # pause to allow ipfs daemon to begin 
+    time.sleep(3)
+    # print ipfs data and daemon init confirmation
+    initialize_ipfsapi()
+
+def ipfs_ledger_getter():
+    network_hash = input('Network hash>\t')
+    ipfs_daemon_init()
+    api = ipfsapi.connect('127.0.0.1', 5001)
+    req = requests.get('https://gateway.ipfs.io/ipfs/' + network_hash)
+    network_ledger_data = req.text
+    print(network_ledger_data)
+    rawdata = api.cat(network_hash)
+    return rawdata, network_hash

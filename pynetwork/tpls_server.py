@@ -1,15 +1,20 @@
 # server.py
 import logging
 logging.basicConfig(level=logging.DEBUG, format='%(message)s', )
-logger = logging.getLogger(__name__)
 import datetime as dt
 
 local_ip = "192.168.1.5"
 n_port = 1234
+trusted_wallet_hash = ['56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d']
 
 def catch_input(input_string):  
     autolog()
-    return input_string[::-1]
+    packet = input_string
+    if packet[0] == trusted_wallet_hash[0]:
+        cs = 'Connection success'
+    else:
+        cs = 'ERROR: CONNECTIONS UNSUCCESFUL'
+    return cs
 
 def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     # the input is in bytes, so decode it

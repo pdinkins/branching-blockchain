@@ -3,7 +3,7 @@
 
 import csv
 import chain
-
+ 
 class NewLedger:
     # This class creates a new ledger file:  'legdername'.file 
     # CALLING THE ENTIRE CLASS WILL GIVE ERRORS
