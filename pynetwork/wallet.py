@@ -113,6 +113,7 @@ def write_wallet():
 
 def parse_wallet():
     try:
+        wallet_data.clear()
         import csv
         walletfile = str(input('walletfile> '))
         with open(walletfile) as wallet:
