@@ -3,7 +3,7 @@ import wallet
 
 class Packet:
     def __init__(self):
-        self.wallet_hash = wallet.current_wallet[1]
+        self.wallet_hash = wallet.wallet_data[1]
         self.data = self.datagen()
         self.hash = self.__hash__()
 
