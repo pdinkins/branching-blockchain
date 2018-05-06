@@ -19,7 +19,7 @@ def ipfs_daemon_init():
 def ipfs_ledger_getter():
     network_hash = input('Network hash>\t')
     ipfs_daemon_init()
-    api = ipfsapi.connect('127.0.0.1', 5002)
+    api = ipfsapi.connect('127.0.0.1', 5001)
     req = requests.get('https://gateway.ipfs.io/ipfs/' + network_hash)
     network_ledger_data = req.text
     print(network_ledger_data)

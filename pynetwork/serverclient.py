@@ -1,11 +1,12 @@
-# client.py
-
 import socket
+
+SERVER_IP = "70.171.11.105"
+SERVER_PORT = 1234
 
 # establish socket
 soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 # connect to open socket server
-soc.connect(("70.171.11.105", 1234))
+soc.connect((SERVER_IP, SERVER_PORT))
 # raw data to send
 clients_input = input("input> \n")  
 # send encoded data

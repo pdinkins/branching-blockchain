@@ -14,19 +14,18 @@ ipfsid = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
 
 
 def initialize_ipfsapi():
-    api = ipfsapi.connect('127.0.0.1', 5002)
+    api = ipfsapi.connect('127.0.0.1', 5001)
     apiid = api.id()
     ipfs_addresses = apiid[ipfsid[0]]
     for i in range(1, len(ipfsid)):
-        print(ipfsid[i],'\n' + apiid[ipfsid[i]])
-        print()
+        print(ipfsid[i],'\n' + apiid[ipfsid[i]] + '\n')
     print(ipfsid[0])
     for i in range(0, len(ipfs_addresses)):
         print(ipfs_addresses[i])
 
 
 def add_file(filename):
-    api = ipfsapi.connect('127.0.0.1', 5002)
+    api = ipfsapi.connect('127.0.0.1', 5001)
     file2add = api.add(filename)
     filehash = file2add["Hash"]
     print(filehash)
