@@ -50,6 +50,8 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
         
         data = data_bytes.decode('utf-8')
         print(dt.datetime.now(), data)
+        replyb = 'DATA TRANSFER COMPLETE'
+        conn.sendall(replyb.encode('utf-8'))
        
     else:
         conn.close()  # close connection
