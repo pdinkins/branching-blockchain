@@ -5,15 +5,18 @@ import datetime as dt
 
 local_ip = "192.168.1.5"
 n_port = 1234
-trusted_wallet_hash = ['56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d']
+trusted_wallet_hash = '56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d'
 
 def catch_input(input_string):  
     autolog()
     packet = input_string
-    if packet[0] == trusted_wallet_hash[0]:
+    if packet == trusted_wallet_hash:
         cs = 'Connection success'
     else:
+
         cs = 'ERROR: CONNECTIONS UNSUCCESFUL'
+    print(dt.datetime.now(), cs)
+    print(dt.datetime.now(), packet)
     return cs
 
 def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
@@ -26,10 +29,10 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     siz = sys.getsizeof(input_from_client_bytes)
     if  siz >= MAX_BUFFER_SIZE:
         print("The length of input is probably too long: {}".format(siz))
-
+    print(dt.datetime.now(), input_from_client_bytes)
     # decode input and strip the end of line
-    input_from_client = input_from_client_bytes.decode("utf8").rstrip()
-
+    input_from_client = input_from_client_bytes.decode("utf8")
+    print(dt.datetime.now(), input_from_client)
     res = catch_input(input_from_client)
     #print("Result of processing {} is: {}".format(input_from_client, res))
 
