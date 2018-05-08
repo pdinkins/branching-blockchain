@@ -119,7 +119,7 @@ def incoming_msg(msg):
     autolog(msg)
 
 
-def start_server():
+def start_handshake():
     import socket
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # this is for easy starting/killing the app
@@ -142,18 +142,18 @@ def start_server():
 
     # this will make an infinite loop needed for 
     # not reseting server for every client
-    while run:
-        conn, addr = soc.accept()
-        ip, port = str(addr[0]), str(addr[1])
-        d = 'loop_0 > ACCEPTING CONNECTIONS FROM ' + ip + ':' + port
-        autolog(d)
-        try:
-            Thread(target=client_thread, args=(conn, ip, port)).start()
-        except:
-            print(dt.datetime.now(), "Terible error!")
-            import traceback
-            autolog('loop: ERROR')
-            traceback.print_exc()
+
+    conn, addr = soc.accept()
+    ip, port = str(addr[0]), str(addr[1])
+    d = 'loop_0 > ACCEPTING CONNECTIONS FROM ' + ip + ':' + port
+    autolog(d)
+    try:
+        Thread(target=client_thread, args=(conn, ip, port)).start()
+    except:
+        print(dt.datetime.now(), "Terible error!")
+        import traceback
+        autolog('loop: ERROR')
+        traceback.print_exc()
     
     soc.close()
     
@@ -171,4 +171,3 @@ def autolog(message):
         message
     ))
 
-start_server()  

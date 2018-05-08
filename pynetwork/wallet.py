@@ -4,11 +4,20 @@
 # dyanmically stores data for wallet currently in use
 current_wallet = []
 wallet_data = []
+_system_architecture_dyna = []
+
+# dumps all dynamic data
+def dynamic_data_dump():
+    current_wallet.clear()
+    wallet_data.clear()
+    _system_architecture_dyna.clear()
+
 
 class NewWallet:
     def __init__(self):
         self.timestamp = self.time_stamp()
         self.usr_nym = self.user_nym()
+        self.node_build = self.user_build()
         self.id = self.generate_user_id()
 
     def time_stamp(self):
@@ -18,28 +27,126 @@ class NewWallet:
     def user_nym(self):
         usernym = input('This info will be used to name the local wallet file.\nuser_nym> ')
         return usernym
+    
+    def user_build(self):
+        # for testing the current local build
+        # initial import
+        try:
+            import os, sys
+            import platform
+            import datetime
+            import subprocess
+            import requests
+            import time
+            import pynetwork.ipfs as ipfs
+             
+            #from classes import User, Idea
+            #import bloacks, bloacks, chain, client
+            #import generate, menu, writer, ledger
+
+        except:
+            print('FATAL__BUILD__ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+    
+        try:
+            # current cpu system configuration 
+            log('0_SYSTEM_CONFIG')
+            
+            self._0_node_ip = requests.get('http://ip.42.pl/raw').text
+            log(self._0_node_ip) 
+            
+            self._0_node_config = requests.get('http://ip.42.pl/headers').text
+            log(self._0_node_config)
+            
+            self._system_architecture = platform.uname()
+            log(self._system_architecture)
+            
+            self.node = platform.platform()
+            log(self.node)
+            
+            self._python_build = platform.python_build()
+            log(self._python_build)
+            
+            self._system = platform.system()
+            log(self._system)
+            
+            self._python_compiler = platform.python_compiler()
+            log(self._python_compiler)
+
+            log('0_SYSTEM_CONFIGFILE')
+            self.n0osd = [
+                self._0_node_ip,
+                self._0_node_config,
+                self._system_architecture,
+                self.node,
+                self._python_build,
+                self._system,
+                self._python_compiler
+            ]
+            return self.n0osd
+
+
+
+        except:
+            print(datetime.datetime.now(), 'SYSTEM LOG')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+
 
     def generate_user_id(self):
         import hashlib
         wid = hashlib.sha256()
         wid.update(str(self.timestamp).encode('utf=8') +
-                    str(self.usr_nym).encode('utf-8'))
+                    str(self.usr_nym).encode('utf-8') + 
+                    str(self.node_build).encode('utf-8'))
         return wid.hexdigest()
 
 def generate_new_wallet():
     wallet = NewWallet()
-    wd = [wallet.id, wallet.usr_nym, wallet.timestamp]
+    sys_arc = wallet.user_build()
+    builder(wallet.id, wallet.usr_nym, sys_arc)
+    wd = [wallet.id, wallet.usr_nym, sys_arc]
     for i in range(0, len(wd)):
-        print(wd[i])
+        log(wd[i])
+
     set_current_wallet(wd)
+
+
+def builder(id, nym, arc):
+    try:
+        import pynetwork.ipfs as ipfs
+        ipfs.initialize_ipfsapi()
+
+        
+        config_file = open('config_0_node.txt', 'w')
+        for i in range(0, len(arc)):
+            config_file.writelines(arc[i]) 
+        config_file.close()
+        ipfs.add_file('config_0_node.txt')
+    
+    except:
+        print('__BUILD__FILE__IPFS__ERROR')
+        error = sys.exc_info()
+        print(error)
+        print(sys.exc_info()[0])
+        raise
+
+
 
 def set_current_wallet(rgw):
     try:
         d = str(input('Use recently generated wallet as current usable hash wallet [y/n]? >')).lower()
+        
+        #fill dynamic storage list
         if d == 'y':
             for i in range(0, len(rgw)):
                 current_wallet.append(rgw[i])
-            print('Succesfully set the current usable wallet')
+            log('Succesfully set the current usable wallet')
             # pipe back to client interface
         elif d == 'n':
             aus = str(input('are you sure [y/n]? > ')).lower()
@@ -138,8 +245,22 @@ def parse_wallet():
     except FileNotFoundError:
         print('ERROR: WALLET__NOT__FOUND')
 
+def log(msg):
+    wallet_auto_log(msg)
 
-
+def wallet_auto_log(message):
+    import inspect, logging
+    import datetime as dt
+    # Get the previous frame in the stack, otherwise it would
+    # be this function!!!
+    func = inspect.currentframe().f_back.f_code
+    # Dump the message + the name of this function to the log.
+    logging.debug("{}\t{}\t{}\t{}".format(
+        dt.datetime.now(),
+        func.co_filename,
+        func.co_name,
+        message
+    ))
 
 
 debug_menu = False
