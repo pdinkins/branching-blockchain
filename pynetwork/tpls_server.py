@@ -13,11 +13,11 @@ def catch_input(input_string):
     autolog()
     packet = input_string
     if packet == trusted_wallet_hash:
-        cs = 'Connection success'
+        cs = 'CONNECTION SUCCESSFUL'
         handshake.append(1)
     else:
         handshake.append(0)
-        cs = 'ERROR: CONNECTIONS UNSUCCESFUL'
+        cs = 'ERROR: CONNECTION UNSUCCESSFUL'
     print(dt.datetime.now(), cs)
     print(dt.datetime.now(), packet)
     return cs
@@ -32,10 +32,9 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     siz = sys.getsizeof(input_from_client_bytes)
     if  siz >= MAX_BUFFER_SIZE:
         print("The length of input is probably too long: {}".format(siz))
-    print(dt.datetime.now(), input_from_client_bytes)
     # decode input and strip the end of line
     input_from_client = input_from_client_bytes.decode("utf8")
-    print(dt.datetime.now(), input_from_client)
+    print(dt.datetime.now(), 'CLIENT HANDSHAKE HASH: ', input_from_client)
     res = catch_input(input_from_client)
     #print("Result of processing {} is: {}".format(input_from_client, res))
 
@@ -57,7 +56,7 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
         conn.close()  # close connection
     
     autolog()
-    print(dt.datetime.now(), 'Connection ' + ip + ':' + port + " ended")
+    print(dt.datetime.now(), 'CONNECTION ' + ip + ':' + port + " TERMINATED")
 
 def start_server():
     import socket
@@ -65,19 +64,19 @@ def start_server():
     # this is for easy starting/killing the app
     soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     autolog()
-    print(dt.datetime.now(), 'Socket created')
+    print(dt.datetime.now(), 'SOCKET CREATED')
 
     try:
         soc.bind((local_ip, n_port))
-        print(dt.datetime.now(), 'Socket bind complete')
+        print(dt.datetime.now(), 'SOCKET BIND COMPLETE')
     except socket.error as msg:
         import sys
-        print(dt.datetime.now(), 'Bind failed. Error : ' + str(sys.exc_info()))
+        print(dt.datetime.now(), 'BIND_FAIL_ERROR: ' + str(sys.exc_info()))
         sys.exit()
 
     #Start listening on socket
     soc.listen(10)
-    print(dt.datetime.now(), 'Socket now listening')
+    print(dt.datetime.now(), 'SOCKET LISTENING')
     autolog()
     # for handling task in separate jobs we need threading
     from threading import Thread
@@ -87,7 +86,7 @@ def start_server():
     while True:
         conn, addr = soc.accept()
         ip, port = str(addr[0]), str(addr[1])
-        print(dt.datetime.now(), 'Accepting connection from ' + ip + ':' + port)
+        print(dt.datetime.now(), 'ACCEPTING CONNECTIONS FROM ' + ip + ':' + port)
         autolog()
         try:
             Thread(target=client_thread, args=(conn, ip, port)).start()

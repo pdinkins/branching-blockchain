@@ -1,6 +1,8 @@
 import socket
 
-SERVER_IP = "70.171.11.105"
+testips = ["192.168.0.9", "70.171.11.105"]
+tip = int(input('ip_id>\t'))
+SERVER_IP = testips[tip]
 SERVER_PORT = 1234
 
 # establish socket
@@ -27,4 +29,4 @@ if result_string == 'Connection success':
     soc.send(clients_input[1].encode('utf-8'))
     reply = soc.recv(4096)
     print(reply.decode('utf-8'))
-    
+
