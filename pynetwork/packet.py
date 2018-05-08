@@ -1,9 +1,9 @@
 import hashlib
-import wallet 
+import pynetwork.wallet as wallet 
 
 class Packet:
     def __init__(self):
-        self.wallet_hash = wallet.wallet_data[1]
+        self.wallet_hash = wallet.wallet_data[0]
         self.data = self.datagen()
         self.hash = self.__hash__()
 
@@ -14,7 +14,7 @@ class Packet:
         return sha.hexdigest()
 
     def datagen(self):
-        self.packet_data = 'PACKET DATA'
+        self.packet_data = str(input('FID> '))
         return self.packet_data
 
 

@@ -79,7 +79,7 @@ if __name__ == '__main__':
     import socket
     import threading
 
-    address = ('localhost', 0) # let the kernel give us a port
+    address = ("192.168.1.5", 0) # let the kernel give us a port
     server = EchoServer(address, EchoRequestHandler)
     ip, port = server.server_address # find out what port we were given
 

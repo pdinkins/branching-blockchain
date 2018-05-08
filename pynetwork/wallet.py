@@ -28,7 +28,7 @@ class NewWallet:
 
 def generate_new_wallet():
     wallet = NewWallet()
-    wd = [wallet.usr_nym, wallet.id, wallet.timestamp]
+    wd = [wallet.id, wallet.usr_nym, wallet.timestamp]
     for i in range(0, len(wd)):
         print(wd[i])
     set_current_wallet(wd)
@@ -57,6 +57,7 @@ def set_current_wallet(rgw):
     except TypeError:
         print("ERROR: Not a valid input")
         return
+
 
 def print_cw():
     for i in range(0, len(current_wallet)):
@@ -108,6 +109,18 @@ def write_wallet():
         writer.writerow([current_wallet[0],
                         current_wallet[1],
                         current_wallet[2]])
+
+def write_cwf():
+    import csv
+    try:
+        with open ('main.csv', 'w', newline='') as cwallet:
+            writer = csv.writer(cwallet)
+            writer.writerow([current_wallet[0],
+                            current_wallet[1],
+                            current_wallet[2]])
+    except FileNotFoundError:
+        open('main.csv', 'w')
+        return
 
 
 
