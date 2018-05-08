@@ -23,13 +23,19 @@ def wallet_genesis():
     wallet.print_cw()
     wallet.write_wallet()
 
-
+SETUP_PrintPacket = False
 
 def packet_genesis():
     wallet.parse_wallet()
     p = Packet()
-    print('wallet hash: ', p.wallet_hash)
-    print('wallet data', p.data)
-    print('wallet data hash', p.hash)
+    
+    if SETUP_PrintPacket:
+        print('wallet hash: ', p.wallet_hash)
+        print('wallet data', p.data)
+        print('wallet data hash', p.hash)
+    
+    else:
+        print('SETUP_PrintPacket = ', SETUP_PrintPacket)
+    
     packet2send = [p.wallet_hash, p.data, p.hash]
     return packet2send

@@ -1,7 +1,8 @@
 import socket
 
 testips = ["192.168.0.9", "70.171.11.105"]
-tip = int(input('ip_id>\t'))
+# tip = int(input('ip_id>\t'))
+tip = 1
 SERVER_IP = testips[tip]
 SERVER_PORT = 1234
 
@@ -26,7 +27,11 @@ result_string = result_bytes.decode("utf8") # the return will be in bytes, so de
 print("data for server> {}".format(result_string))   
 
 if result_string == 'Connection success':
-    soc.send(clients_input[1].encode('utf-8'))
+    rdi = str(input('>\t')).encode('utf-8')
+    d2s = [clients_input[1], rdi]
+
+
+    soc.send(d2s[1])
     reply = soc.recv(4096)
     print(reply.decode('utf-8'))
 
