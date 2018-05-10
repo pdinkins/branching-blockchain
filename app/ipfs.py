@@ -14,10 +14,11 @@ import time
 
 
 ipfsid = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
-
+ipfsapi_ip = '127.0.0.1'
+ipfsapi_port = 5001
 
 def initialize_ipfsapi():
-    api = ipfsapi.connect('127.0.0.1', 5001)
+    api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
     apiid = api.id()
     ipfs_addresses = apiid[ipfsid[0]]
     for i in range(1, len(ipfsid)):
@@ -28,7 +29,7 @@ def initialize_ipfsapi():
 
 
 def add_file(filename):
-    api = ipfsapi.connect('127.0.0.1', 5001)
+    api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
     file2add = api.add(filename)
     filehash = file2add["Hash"]
     print(filehash)
@@ -65,7 +66,7 @@ def ipfs_daemon_init():
 def ipfs_ledger_getter():
     network_hash = input('Network hash>\t')
     ipfs_daemon_init()
-    api = ipfsapi.connect('127.0.0.1', 5001)
+    api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
     req = requests.get('https://gateway.ipfs.io/ipfs/' + network_hash)
     network_ledger_data = req.text
     print(network_ledger_data)

@@ -131,6 +131,7 @@ def builder(id, nym, arc):
     
     except:
         print('__BUILD__FILE__IPFS__ERROR')
+        import sys
         error = sys.exc_info()
         print(error)
         print(sys.exc_info()[0])
