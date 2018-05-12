@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 local_ip = "192.168.1.5"
 n_port = 1234
-tw = ['951c49bc88ce9a2cc31d4470423590a7c0bedbef953a06a72e6b5d4f74731ed6', '56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d']
+tw = ['22670bf1b10545e46f7d797c8e4bd7a77af1bb667f7e864aaca07fad65439f84','951c49bc88ce9a2cc31d4470423590a7c0bedbef953a06a72e6b5d4f74731ed6', '56b8ba882b6aeeb7fa43f9125d8d2909b8a734f82b46b67b3809105a28cfb05d']
 trusted_wallet_hash = tw
 handshake = []
 run = True
@@ -97,6 +97,7 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
 
     arnold = 'CONNECTION ' + ip + ':' + port + " TERMINATED"
     autolog(arnold)
+    start_handshake()
 
 
 def fid_analyze(fid):
@@ -107,12 +108,17 @@ def fid_analyze(fid):
     elif fid == '0':
         # pipe to execute function
         autolog('0_NETWORK_PROTOCOL')
+
     elif fid == '1':
         autolog('1_np')
     elif fid == 'msg':
         incoming_msg(fid)
     else:
         autolog('NO MATHCING FID EXECUTABLES')
+
+def post_fid_anal():
+    
+
 
 
 def incoming_msg(msg):

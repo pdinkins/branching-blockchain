@@ -16,9 +16,9 @@ def ns():
         return
 
 def node_server_run():
-    ns = ns()
+    n_s = ns()
     NODE_STATUS.clear()
-    NODE_STATUS.append(ns)
+    NODE_STATUS.append(n_s)
     start_handshake()
 
 def new_wallet():

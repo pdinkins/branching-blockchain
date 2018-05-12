@@ -19,10 +19,10 @@ def initialize_ipfsapi():
     print(ipfsid[0])
     for i in range(0, len(ipfs_addresses)):
         print(ipfs_addresses[i])
-
+    return api
 
 def add_file(filename):
-    api = ipfsapi.connect('127.0.0.1', 5002)
+    api = initialize_ipfsapi()
     file2add = api.add(filename)
     filehash = file2add["Hash"]
     print(filehash)

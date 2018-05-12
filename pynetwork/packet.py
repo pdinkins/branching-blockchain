@@ -23,7 +23,7 @@ def wallet_genesis():
     wallet.print_cw()
     wallet.write_wallet()
 
-SETUP_PrintPacket = False
+SETUP_PrintPacket = True
 
 def packet_genesis():
     wallet.parse_wallet()

@@ -15,7 +15,7 @@ import time
 
 ipfsid = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
 ipfsapi_ip = '127.0.0.1'
-ipfsapi_port = 5001
+ipfsapi_port = 5002
 
 def initialize_ipfsapi():
     api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
