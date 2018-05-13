@@ -85,9 +85,6 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
         autolog(data)
         fid_analyze(data)
 
-
-
-
         # responce after fid execute
         replyb = 'DATA TRANSFER COMPLETE'
         conn.sendall(replyb.encode('utf-8'))
@@ -117,8 +114,8 @@ def fid_analyze(fid):
         autolog('NO MATHCING FID EXECUTABLES')
 
 def post_fid_anal():
+    pass
     
-
 
 
 def incoming_msg(msg):

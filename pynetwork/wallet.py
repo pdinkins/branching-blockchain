@@ -58,9 +58,13 @@ class NewWallet:
             self._0_node_ip = requests.get('http://ip.42.pl/raw').text
             log(self._0_node_ip) 
             
-            self._0_node_config = requests.get('http://ip.42.pl/headers').text
-            log(self._0_node_config)
-            
+            DEBUG_headers = False
+            if DEBUG_headers == True:
+                self._0_node_config = requests.get('http://ip.42.pl/headers').text
+                log(self._0_node_config)
+            else:
+                log('DEBUG_headers = ' + DEBUG_headers)
+
             self._system_architecture = platform.uname()
             log(self._system_architecture)
             
@@ -88,8 +92,6 @@ class NewWallet:
             ]
             return self.n0osd
 
-
-
         except:
             print(datetime.datetime.now(), 'SYSTEM LOG')
             error = sys.exc_info()
@@ -113,7 +115,6 @@ def generate_new_wallet():
     wd = [wallet.id, wallet.usr_nym, sys_arc]
     for i in range(0, len(wd)):
         log(wd[i])
-
     set_current_wallet(wd)
 
 
