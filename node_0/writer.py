@@ -2,7 +2,7 @@
 # aswell as parse and write changes to it
 
 import csv
-import chain
+import node_server
  
 class NewLedger:
     # This class creates a new ledger file:  'legdername'.file 
@@ -24,8 +24,6 @@ class Ledger:
         self.filename = name + '.csv'
 
 
-
-
 def ledger_parse(ledger_file_name):
     '''
     Parse the ledger and append the values to respective list for 
@@ -35,14 +33,12 @@ def ledger_parse(ledger_file_name):
             needed parts of the ledger to save memory and cpu power
     '''
     # dump the previous dynamic lists
-    chain.dynamicdump()
+    node_server.dynamic_data_dump()
     try:
         with open(ledger_file_name) as ledger:
             reader = csv.reader(ledger)
             for row in reader:
-                chain.p_hash.append(row[0])
-                chain.c_hash.append(row[1])
-                chain.n_hash.append(row[2])
+                node_server.trusted_hashes.append(row[0])
     except FileNotFoundError:
         print('ERROR: LEDGER__NOT__FOUND')
 

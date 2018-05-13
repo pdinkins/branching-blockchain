@@ -19,6 +19,8 @@ Config file is required
 #### DYNAMIC DATA ####
 trusted_hashes = []
 handshake = []
+hs_key = 'orion'
+
 
 # dumps data from 
 def dynamic_data_dump():
@@ -36,6 +38,7 @@ try:
     import socket
     import inspect
     from threading import Thread
+    import writer
     
     logging.basicConfig(level=logging.DEBUG, format='%(message)s')
     def log(message):
@@ -109,17 +112,63 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
         # decode the incoming data
         chash_r = incoming_chash.decode('utf-8')
         log(chash_r)
-
         #send chash to be analyzed
+        chash_analyzer(chash_r)
+
+        if handshake[0] == 0:
+            log('REFUSE INCOMING CONNECTION')
+            response = 'Connection refused'
+            conn.sendall(response.encode('utf-8'))
+            conn.close()
+
+        elif handshake[0] == hs_key:
+            log('INCOMING CONNECTION ACCEPTED')
+            fidb = conn.recv(MAX_BUFFER_SIZE)
+            # check size TODO: make this a seperate function for easy reuse 
+            fidb_size = sys.getsizeof(fidb)
+            if fidb_size >= MAX_BUFFER_SIZE:
+                log('ERROR_fidb > maxbuffersize')
+                log('TERMINATING_THREAD')
+                # pipe to end thread
+                conn.close()
+            # decode the incoming function id data
+            fid_data = fidb.decode('utf-8')
+            log(fid_data)
+            # TODO pipe to fid analyer
+            # fid_analyze(fid_data)
+            
+
+            # reponse
+            reply_bytes = 'node connection succesful'
+            conn.sendall(reply_bytes.encode('utf-8'))
+
+            arnold = 'CONNECTION ' + ip + ':' + port + " TERMINATED"
+            log(arnold)
+            # restart the process
+            open_connection()
 
 
 
 def chash_analyzer(incoming_chash):
     # check if incoming client hash is a trusted hash
-    # parse trusted hash file
-    # append trusted hashes to dynamic list
-    pass
-    
+    # create file abject TODO: make this object in the setup script 
+    thfile = writer.Ledger('trustedhashes')
+    # parse trusted hash file and append trusted hashes to dynamic list
+    writer.ledger_parse(thfile.filename)
+    log('BEGIN HASH CHECK')
+    for i in range(0, len(trusted_hashes)):
+        if incoming_chash != trusted_hashes[i]:
+            log('CHASH CHECK FAIL')
+            handshake.clear()
+            handshake.append(0)
+        elif incoming_chash == trusted_hashes[i]:
+            log('CHASH CHECK PASS')
+            # hs_key is setup function contained in the setup script 
+            handshake.clear()
+            handshake.append(hs_key)
+        else:
+            log('CHASH CHECK COMPLETELY FAILED')
+            handshake.clear().append(0)
 
 
 

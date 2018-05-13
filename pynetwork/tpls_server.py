@@ -68,10 +68,13 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     # analyze incoming user hash
     res = chash_0(chash_0_r)
     autolog('chash -> analyer')
+    
+    
     vysl = res.encode("utf8")  # encode the result string
-    
-    
     conn.sendall(vysl)  # send it to client
+    
+    
+    
     if handshake[0] == 1:
         # fid tx
         autolog('FID INCOMING')
