@@ -4,7 +4,7 @@ import socket
 testips = ["192.168.0.9", "70.171.11.105"]
 tip = 1
 SERVER_IP = testips[tip]
-SERVER_PORT = 1234
+SERVER_PORT = 3145
 
 
 

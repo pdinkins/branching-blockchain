@@ -1,5 +1,9 @@
 # setup.py 
 # sniffs current build and generates current config file
+# import setup
+# 
+# user = setup.UserBuild()
+
 class UserBuild:
     def __init__(self):
         self.build = self.user_build()
@@ -26,7 +30,7 @@ class UserBuild:
             raise
         
         try:
-            # current cpu system configuration 
+            #### current cpu system configuration 
             log('0_SYSTEM_CONFIG')
             try:  
                 self._0_node_ip = requests.get('http://ip.42.pl/raw').text
@@ -46,8 +50,11 @@ class UserBuild:
 
             self.pmachine = platform.machine()
             log(self.pmachine)
-
-
+            
+            #### file system analyze 
+            ## checks for corrupted or out of date software
+            self._file_check = subprocess.Popen(['tree', '/F'], stdout=subprocess.PIPE)
+            log(_file_check.communicate())
 
             log('0_SYSTEM_CONFIGFILE')
             self.n0osd = [
@@ -59,7 +66,7 @@ class UserBuild:
             return self.n0osd
 
         except:
-            print(datetime.datetime.now(), 'SYSTEM LOG')
+            log('USER_')
             error = sys.exc_info()
             print(error)
             print(sys.exc_info()[0])
@@ -78,5 +85,5 @@ def log(message):
         message))
 
 
-user = UserBuild()
+
 

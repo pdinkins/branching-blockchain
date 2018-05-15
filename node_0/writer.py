@@ -24,6 +24,8 @@ class Ledger:
         self.filename = name + '.csv'
 
 
+##### Do not touch this function 
+## this function is used by the node_server.py file 
 def ledger_parse(ledger_file_name):
     '''
     Parse the ledger and append the values to respective list for 

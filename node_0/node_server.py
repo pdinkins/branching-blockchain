@@ -27,7 +27,13 @@ def dynamic_data_dump():
     trusted_hashes.clear()
     handshake.clear()
 
+import logging
 
+logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+def log(message):
+    logging.debug("{}\t{}".format(
+            datetime.datetime.now(),
+            message))
 
 #### IMPORT ####
 try:
@@ -39,20 +45,18 @@ try:
     import inspect
     from threading import Thread
     import writer
-    
-    logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-    def log(message):
-        function = inspect.currentframe().f_back.f_code
-        logging.debug("{}\t{}\t{}".format(
-            datetime.datetime.now(),
-            function.co_filename,
-            message))
-    
+    import ipfsapi
+    import setup
     log('INITIAL_IMPORT_SUCCESSFUL')
 except:
     log('INITIAL_IMPORT_ERROR')
     print(sys.exc_info())
     sys.exit()
+
+#### SETUP ####
+
+node_0 = setup.UserBuild()
+node_0
 
 
 
@@ -64,9 +68,11 @@ def open_connection():
     _socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     log('0_NODE_connection_socket')
     
-    # bind socket to local network IP and forward port
+    # bind socket to local network 
+    # 
+    # 0 and forward port
     try:
-        _socket.bind(('192.168.1.5', 1234)) # add dynamic naming
+        _socket.bind(('192.168.1.4', 1234)) # add dynamic naming
         log('0_NODE_socket_bind')
     except socket.error as message:
         log(message)
@@ -111,9 +117,10 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
     else:
         # decode the incoming data
         chash_r = incoming_chash.decode('utf-8')
-        log(chash_r)
+        log('_INCOMING_CLIENT_HASH___\t' + chash_r)
         #send chash to be analyzed
-        chash_analyzer(chash_r)
+        hs = chash_analyzer(chash_r)
+        conn.sendall(hs.encode('utf-8'))
 
         if handshake[0] == 0:
             log('REFUSE INCOMING CONNECTION')
@@ -121,7 +128,7 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
             conn.sendall(response.encode('utf-8'))
             conn.close()
 
-        elif handshake[0] == hs_key:
+        elif hs == hs_key:
             log('INCOMING CONNECTION ACCEPTED')
             fidb = conn.recv(MAX_BUFFER_SIZE)
             # check size TODO: make this a seperate function for easy reuse 
@@ -135,18 +142,23 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
             fid_data = fidb.decode('utf-8')
             log(fid_data)
             # TODO pipe to fid analyer
-            # fid_analyze(fid_data)
+            node_res = fid_analyze(fid_data)
             
-
             # reponse
-            reply_bytes = 'node connection succesful'
-            conn.sendall(reply_bytes.encode('utf-8'))
+            reply_bytes = node_res.encode('utf-8')
+            conn.sendall(reply_bytes)
 
             arnold = 'CONNECTION ' + ip + ':' + port + " TERMINATED"
             log(arnold)
             # restart the process
             open_connection()
 
+def fid_analyze(fid_d):
+    while fid_d == 'orion':
+        log(fid_d)
+        response = 'fid analyzed the fid and this is the fcking'
+        
+        return response
 
 
 def chash_analyzer(incoming_chash):
@@ -166,6 +178,7 @@ def chash_analyzer(incoming_chash):
             # hs_key is setup function contained in the setup script 
             handshake.clear()
             handshake.append(hs_key)
+            return hs_key
         else:
             log('CHASH CHECK COMPLETELY FAILED')
             handshake.clear().append(0)
