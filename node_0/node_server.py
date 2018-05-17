@@ -120,9 +120,10 @@ def client_thread(conn, ip, port, MAX_BUFFER_SIZE = 4096):
         log('_INCOMING_CLIENT_HASH___\t' + chash_r)
         #send chash to be analyzed
         hs = chash_analyzer(chash_r)
-        conn.sendall(hs.encode('utf-8'))
+        hsb = hs.encode('utf-8')
+        conn.sendall(hsb)
 
-        if handshake[0] == 0:
+        if hs == 0:
             log('REFUSE INCOMING CONNECTION')
             response = 'Connection refused'
             conn.sendall(response.encode('utf-8'))
@@ -173,6 +174,7 @@ def chash_analyzer(incoming_chash):
             log('CHASH CHECK FAIL')
             handshake.clear()
             handshake.append(0)
+            return 'fail'
         elif incoming_chash == trusted_hashes[i]:
             log('CHASH CHECK PASS')
             # hs_key is setup function contained in the setup script 
@@ -181,8 +183,9 @@ def chash_analyzer(incoming_chash):
             return hs_key
         else:
             log('CHASH CHECK COMPLETELY FAILED')
-            handshake.clear().append(0)
-
+            handshake.clear()
+            handshake.append(0)
+            return 'fail'
 
 
 open_connection()

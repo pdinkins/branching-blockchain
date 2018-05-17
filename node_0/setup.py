@@ -13,15 +13,90 @@ class UserBuild:
         # for testing the current local build
         # initial import
         try:
+            import_num = 1
             import os, sys
-            import platform
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+
+            from platform import platform, python_branch, python_compiler, machine
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+
+            from platform import python_build
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+
             import datetime
-            import subprocess
-            import requests
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+            
+
+            from subprocess import Popen, PIPE
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+
+            from requests import get
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
+        except:
+            print('FATAL_PYTHON_BUILD_ERROR')
+            error = sys.exc_info()
+            print(error)
+            print(sys.exc_info()[0])
+            raise
+        try:
+
             import time
-            import ipfsapi
-
-
+            import_num += 1
+            log('import') 
+            log(import_num)
+        
         except:
             print('FATAL_PYTHON_BUILD_ERROR')
             error = sys.exc_info()
@@ -29,32 +104,35 @@ class UserBuild:
             print(sys.exc_info()[0])
             raise
         
+
+
+        
+        
         try:
             #### current cpu system configuration 
             log('0_SYSTEM_CONFIG')
             try:  
-                self._0_node_ip = requests.get('http://ip.42.pl/raw').text
+                self._0_node_ip = get('http://ip.42.pl/raw').text
                 log(self._0_node_ip) 
             except:
                 self._0_node_ip = 'No network connection'
                 log('REQUESTS_ERROR')
                 
-            self.node = platform.platform()
+            self.node = platform()
             log(self.node)
                 
-            self._python_build = platform.python_build()
+            self._python_build = python_build()
             log(self._python_build)
                 
-            self._python_compiler = platform.python_compiler()
+            self._python_compiler = python_compiler()
             log(self._python_compiler)
 
-            self.pmachine = platform.machine()
+            self.pmachine = machine()
             log(self.pmachine)
             
             #### file system analyze 
             ## checks for corrupted or out of date software
-            self._file_check = subprocess.Popen(['tree', '/F'], stdout=subprocess.PIPE)
-            log(_file_check.communicate())
+          
 
             log('0_SYSTEM_CONFIGFILE')
             self.n0osd = [
