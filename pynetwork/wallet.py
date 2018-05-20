@@ -14,20 +14,19 @@ def dynamic_data_dump():
 
 
 class NewWallet:
-    def __init__(self):
-        self.timestamp = self.time_stamp()
-        self.usr_nym = self.user_nym()
-        self.node_build = self.user_build()
+    def __init__(self, username, password, build):
+        self.username = username
+        self.password = password
+        self.build = build
+        ####self.node_build = self.user_build()
+        self.timestamper = self.time_stamp()
         self.id = self.generate_user_id()
 
     def time_stamp(self):
         import datetime 
         return datetime.datetime.now()
-
-    def user_nym(self):
-        usernym = input('This info will be used to name the local wallet file.\nuser_nym> ')
-        return usernym
     
+    """
     def user_build(self):
         # for testing the current local build
         # initial import
@@ -98,14 +97,14 @@ class NewWallet:
             print(error)
             print(sys.exc_info()[0])
             raise
-
+    """
 
     def generate_user_id(self):
         import hashlib
         wid = hashlib.sha256()
-        wid.update(str(self.timestamp).encode('utf=8') +
-                    str(self.usr_nym).encode('utf-8') + 
-                    str(self.node_build).encode('utf-8'))
+        wid.update(str(self.timestamper).encode('utf=8') +
+                    str(self.username).encode('utf-8') + 
+                    str(self.build).encode('utf-8'))
         return wid.hexdigest()
 
 def generate_new_wallet():

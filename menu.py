@@ -1,9 +1,7 @@
-
+'''
 # MENU
 # displays a menu, user choice, choice function execution.
 
-
-'''
 USE:
     1. import menu
     2. define menu choice functions
@@ -11,6 +9,13 @@ USE:
         {'menu choice label': corresponding function}
     4. menu.initialize_menu(**menu_dictionary, **menutitle)
 '''
+
+
+from time import sleep
+import os
+
+
+
 
 def initialize_menu(menu_dictionary, menutitle):
     menulist = list(menu_dictionary.keys())
@@ -37,3 +42,19 @@ def choose_from_menu(menulist, menu_dictionary):
 
 def quit_menu():
     quit()
+
+
+def title():
+    print('=' * 80)
+    print('=' * 80)
+
+
+def clear():
+    import platform
+    ops = platform.system()
+    if ops == 'Darwin':
+        os.system('clear')
+    else:
+        os.system('cls')
+
+
