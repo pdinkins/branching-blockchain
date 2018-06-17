@@ -1,7 +1,9 @@
 # branching-blockchain
-## branching-blockchain
-### branching-blockchain
-#### branching-blockchain
-##### branching-blockchain
 
-Branching blockchain platform 
+#### dependencies:
+  Python3.6
+  IPFS
+  
+
+This repo contians networking and cryptographic modules.
+
