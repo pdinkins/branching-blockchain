@@ -1,32 +1,52 @@
-# ipfs.py
+'''
+# IPFS
 # interact with the ipfs network 
+# 
+# This module makes use of the py-ipfs-api to interact with
+# an ipfs node. 
+
+
+'''
+
 
 import ipfsapi
-from pprint import pprint
 import requests
-import writer
-import network
-import generate
-import chain
-import subprocess
-import sys
-import time
 
 
-ipfsid = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
-ipfsapi_ip = '127.0.0.1'
-ipfsapi_port = 5002
+class IpfsNode:
+    '''
+USE:
+    # first initialize the connection
+    ipfsnode = IpfsNode()
 
-def initialize_ipfsapi():
-    api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
-    apiid = api.id()
-    ipfs_addresses = apiid[ipfsid[0]]
-    for i in range(1, len(ipfsid)):
-        print(ipfsid[i],'\n' + apiid[ipfsid[i]] + '\n')
-    print(ipfsid[0])
-    for i in range(0, len(ipfs_addresses)):
-        print(ipfs_addresses[i])
+'''
+    def __init__(self):
+        # initial variables
+        self.ipfslist = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
+        self.ipfsapi_ip = '127.0.0.1'
+        self.ipfsapi_port = 5002
 
+        # sub level variables
+        self._api_connection = self.initialize_ipfsapi_connection()
+
+    def initialize_ipfsapi_connection(self):
+        # establish 
+        self.api = ipfsapi.connect(self.ipfsapi_ip, self.ipfsapi_port)
+        self.apiid = self.api.id()
+        self.ipfs_addresses = self.apiid[self.ipfslist[0]]
+        for i in range(1, len(self.ipfslist)):
+            print(self.ipfslist[i],'\n' + self.apiid[self.ipfslist[i]] + '\n')
+        print(self.ipfslist[0])
+        for i in range(0, len(self.ipfs_addresses)):
+            print(self.ipfs_addresses[i])
+        
+        # return the api connection instance 
+        # adopted from the ipfsapi.connect class    
+        return self.api
+
+node = IpfsNode()
+
+'''
 
 def add_file(filename):
     api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)
@@ -72,3 +92,5 @@ def ipfs_ledger_getter():
     print(network_ledger_data)
     rawdata = api.cat(network_hash)
     return rawdata, network_hash
+
+'''
