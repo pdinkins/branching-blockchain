@@ -43,6 +43,12 @@ USE:
         # return the api connection instance 
         # adopted from the ipfsapi.connect class    
         return self.api
+    
+    def add_file(self, _file):
+        self.file2add = self._api_connection.add(_file)
+        self.__filehash = self.file2add["Hash"]
+        print(self.__filehash)
+        print(self._api_connection.cat(self.__filehash))
 
 node = IpfsNode()
 
