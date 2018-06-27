@@ -1,6 +1,9 @@
-# Stores current blockchain information
+'''
+# CHAIN
+# Stores current blockchain information and chain functions
 # All storage is dynamic and is determined by the users actions
- 
+
+'''
 
 # contains block objects
 blockchain = []
