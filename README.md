@@ -2,11 +2,11 @@
 
 This repo contians networking and cryptographic modules.
 
-#### Dependencies
-Python3.6 https://www.python.org/
-go-ipfs https://github.com/ipfs/go-ipfs
-py-ipfs-api https://github.com/ipfs/py-ipfs-api
-requests https://github.com/requests/requests
+## Dependencies
+#### Python3.6 https://www.python.org/
+#### go-ipfs https://github.com/ipfs/go-ipfs
+#### py-ipfs-api https://github.com/ipfs/py-ipfs-api
+#### requests https://github.com/requests/requests
 
 
 
