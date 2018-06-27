@@ -1,9 +1,7 @@
-
+'''
 # MENU
 # displays a menu, user choice, choice function execution.
 
-
-'''
 USE:
     1. import menu
     2. define menu choice functions
