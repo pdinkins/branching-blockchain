@@ -4,22 +4,20 @@
 # 
 # This module makes use of the py-ipfs-api to interact with
 # an ipfs node. 
-
-
+ 
 '''
-
 
 import ipfsapi
 import requests
 
 
-class IpfsNode:
+class Ipfs_API:
     '''
-USE:
-    # first initialize the connection
-    ipfsnode = IpfsNode()
+    USE:
+        # first initialize the connection
+        ipfsnode = Ipfs_API()
 
-'''
+    '''
     def __init__(self):
         # initial variables
         self.ipfslist = ['Addresses', 'ID', 'AgentVersion', "ProtocolVersion", "PublicKey" ]
@@ -43,14 +41,26 @@ USE:
         # return the api connection instance 
         # adopted from the ipfsapi.connect class    
         return self.api
-    
-    def add_file(self, _file):
-        self.file2add = self._api_connection.add(_file)
-        self.__filehash = self.file2add["Hash"]
-        print(self.__filehash)
-        print(self._api_connection.cat(self.__filehash))
 
-node = IpfsNode()
+class IPFS_add_file:
+    '''
+    # add the file to the ipfs network
+    '''
+    def __init__(self, _file):
+        self.ipfsapi_init = Ipfs_API()
+        self.api_connection = self.ipfsapi_init._api_connection
+        self._file = _file
+        self._file_hash = self.add_file()
+
+    def add_file(self):
+        self.file2add = self.api_connection.add(self._file)
+        self.__filehash = self.file2add["Hash"]
+        # ensure the transfer went through by printing the filehash and file contents
+        print(self.__filehash)
+        print(self.api_connection.cat(self.__filehash))
+        return 
+
+
 
 '''
 

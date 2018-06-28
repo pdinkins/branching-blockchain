@@ -1,18 +1,21 @@
-#!/usr/bin/env python
+'''
+# TEST 
+# for testing the current build and the chain module
 
-# for testing the current local build
-
+'''
 
 # initial import
 try:
     import os, sys
     import platform
-    from classes import User, Idea
-    import ipfs
     import subprocess
-    import time
-    #import bloacks, bloacks, chain, client
-    #import generate, menu, writer, ledger
+    import blocks
+    import chain
+    import classes
+    import ipfs
+    #import ipfsdaemon
+    import ledger
+    import menu
 
 except:
     print('FATALBUILDERROR')
@@ -35,15 +38,9 @@ def start():
     elif os.name == "Linux":
         os.system("py -i test.py")
 
-# instantiation of User class
-name = input('name>\t')
-pin = input('pin>\t')
-testuser = User(name, pin)
-testuser.u_os_plt = os_name + os_platform
-print(testuser.fullname)
-print(testuser.u_os_plt)
 
+modules = [blocks, chain, classes, ipfs, ledger, menu]
 
-subprocess.Popen([sys.executable, 'ipfsdaemon.py'], creationflags = subprocess.CREATE_NEW_CONSOLE)
-time.sleep(3)
-ipfs.initialize_ipfsapi()
+for i in range(0, len(modules)):
+    print(modules[i])
+    print(dir(modules[i]), '\n\n')

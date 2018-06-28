@@ -1,12 +1,10 @@
 # client.py 
 # environment for interacting with the network
 
-import menu
-import generate
-import writer
-import chain
-import network
-import ipfs
+import menu, test
+import blocks, chain, classes
+import ipfs, ipfsdaemon, ledger
+
 
 def help_menu():
     '''
@@ -15,32 +13,12 @@ def help_menu():
     print('This is the help page')
 
 
-def addblock():
-    lfn = input('Ledger file name: ')
-    generate.new_block(lfn)
-
-
-def print_current_block():
-    for i in range(0, len(chain.blockchain)):
-        generate.print_block(chain.blockchain, i)
-
-def ngc():
-    name = input("name>\t")
-    generate.initailize_new_genesis_chain(name)
-
-
+# MAIN MENU DICT 
+# menu.py for more documentation
 main_menu = {
     'HELP MENU': help_menu,
-    'Initailize IPFS': network.ipfs_daemon_init,
-    'New Genesis Chain': ngc,
-    'Upload genesis chain to IPFS': ipfs.upload_g_chain,
-    'ipfs l decon': ipfs.ipfs_ledger_deconstruct,
-    'New block': addblock,
-    'Print current block': print_current_block,
     'Quit': menu.quit_menu
 }
 
-
-
-
+# Launch the terminal menu interface 
 menu.initialize_menu(main_menu, 'BB Main Menu') 

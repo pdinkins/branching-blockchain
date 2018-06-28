@@ -5,18 +5,24 @@
 
 '''
 
-# contains block objects
-blockchain = []
 
-# data generated in the ledger_parse function
-p_hash = []     # previous hash
-c_hash = []     # current hash
-n_hash = []     # next hash
+class Blockchain:
+    '''
+    # contains block objects
+    '''
+    def __init__(self):
+        self.chain = []
+        self.current_transactions = []
 
 
-# clears all data from lists so they can be re-initailized
-def dynamicdump():
-    blockchain.clear()
-    p_hash.clear()
-    c_hash.clear()
-    n_hash.clear()
+    def new_block(self):
+        pass
+
+    @property
+    def current_block(self):
+        pass
+
+    @property
+    def last_block(self):
+        pass
+

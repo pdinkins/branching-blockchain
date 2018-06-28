@@ -1,7 +1,12 @@
-#!/usr/bin/env python
+'''
+# CLASSES
+# This module exists as a tunnel connecting everything to the client module
+
+'''
 
 # Data and functions for users
 class User:
+
     def __init__(self, first, last):
         self.first = first
         self.last = last
@@ -11,10 +16,6 @@ class User:
     # fullname
     def fullname_construction(self):
         return '{}{}'.format(self.first, self.last)
-        
-    # method for determining user network location
-    def location(self):
-        pass
         
     # method for storing user reputation status
     def reputation_calc(self):
@@ -27,20 +28,5 @@ class Idea:
         self.title = title
         self.category = category
         self.value = value
-        self. creator = creator     # userfullname
+        self.creator = creator     # userfullname
 
-class Blockchain(object):
-    def __init__(self):
-        self.chain = []
-        self.current_transactions = []
-
-    def new_block(self):
-        pass
-    
-    @staticmethod
-    def hash(block):
-        pass
-    
-    @property
-    def last_block(self):
-        pass
