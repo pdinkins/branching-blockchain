@@ -1,6 +1,6 @@
-# branching-blockchain
+# Branching-Blockchain
+This repo contians networking and cryptographic modules. Please read the source code in the chain directory as it will always have the latest documentation written alongside the code. 
 
-This repo contians networking and cryptographic modules.
 
 ## Dependencies
 #### Python3.6 https://www.python.org/
@@ -8,7 +8,17 @@ This repo contians networking and cryptographic modules.
 #### py-ipfs-api https://github.com/ipfs/py-ipfs-api
 #### requests https://github.com/requests/requests
 
-
+## Modules
+### Chain
+#### _client
+#### blocks
+#### chain
+#### classes
+#### ipfs 
+#### ipfsdaemon
+#### ledger 
+#### menu
+#### wallet
 
 ## Indexable Branching Blockchain Network
 A branching blockchain network allows for the creation of “branched” chains separate from the “genesis chain”. Users of the network access it by becoming a node on the network. They launch and interact with the node through a client interface. 
@@ -17,9 +27,10 @@ The genesis chain is the backbone of the network. The chain is made up of node b
 ### Branched Chains
 Branched chains contain a genesis block identical the block in the genesis chain they are linked to. This facilitates the generation of a new chain effectively and establishes ownership over the generated chain. Branched chains use hash addresses of a variable length depending on the development needs. The default configuration of a branched chain block contains two hash addresses: the previous and current addresses. The node hash is combined with the branch hash and transaction hash to form the current address hash sequence. 
 ### Structure 
+The genesis chain runs horizontally and the subsequent branched chains run . The numbers represent simple index values, in an applicational sense those would be replaced with hashes and binary numbers. Branched chains have an inherent value based on the amount of validated work they contain. This value is stored in the address hash. 
 ![alt text](media/gc.PNG)
 ![alt text](media/bbci.PNG)
-The genesis chain runs horizontally and the subsequent branched chains run . The numbers represent simple index values, in an applicational sense those would be replaced with hashes and binary numbers. Branched chains have an inherent value based on the amount of validated work they contain. This value is stored in the address hash. 
+
 ### Implementation of a branching block chain into the ICS
 #### Genesis chain: User chain
 The genesis chain will contain a two-way communicable list of nodes on the network. Each block in the chain will contain three separate hashes. The first hash is the node hash of the previous block. The second hash has already been calculated in the previous block and is the personal hash of the newest user being generated. 
