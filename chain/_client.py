@@ -20,5 +20,6 @@ main_menu = {
     'Quit': menu.quit_menu
 }
 
-# Launch the terminal menu interface 
-menu.initialize_menu(main_menu, 'BB Main Menu') 
+def mm():
+    # Launch the terminal menu interface 
+    menu.initialize_menu(main_menu, 'BB Main Menu') 
