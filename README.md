@@ -27,8 +27,7 @@ The branched chains contain information relevant to idea value and IPFS storage 
 
 ## Modules
 ### Chain
-#### _client
-![alt text](chain/_client.py)
+#### ![_client](chain/_client.py)
 #### blocks
 #### chain
 #### classes
