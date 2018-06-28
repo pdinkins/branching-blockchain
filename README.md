@@ -8,18 +8,6 @@ This repo contians networking and cryptographic modules. Please read the source 
 #### py-ipfs-api https://github.com/ipfs/py-ipfs-api
 #### requests https://github.com/requests/requests
 
-## Modules
-### Chain
-#### _client
-#### blocks
-#### chain
-#### classes
-#### ipfs 
-#### ipfsdaemon
-#### ledger 
-#### menu
-#### wallet
-
 ## Indexable Branching Blockchain Network
 A branching blockchain network allows for the creation of “branched” chains separate from the “genesis chain”. Users of the network access it by becoming a node on the network. They launch and interact with the node through a client interface. 
 ### Genesis Chain
@@ -37,3 +25,14 @@ The genesis chain will contain a two-way communicable list of nodes on the netwo
 #### Branched chains: Idea chains
 The branched chains contain information relevant to idea value and IPFS storage addresses. The blocks themselves have a previous block hash and a current hash. This makes chains immutable in a sense that to edit a block halfway up the chain would require the network to recalculate and rewrite the chain. Unless a network consensus to carry out this work is reached the chain stays the same.  The genesis block of the branched chain is identical to the node block it was created from. This establishes ownership over the chain by a single user. The hash used for the idea chains are different than a regular SHA256 in the fact that they are multidimensional arrays containing hashes in the layout described in Figure 2.The hash index format is laid out above. Each block on the idea chain has an idea_hash and contains the previous idea_hash to form a one-way list unlike the genesis chain which can be read in two directions. The idea chain only travels one direction allowing for value calculations to remain unchanged and giving the developer the ability to calculate the value of the idea over time whether it rises or falls. 
 
+## Modules
+### Chain
+#### _client
+#### blocks
+#### chain
+#### classes
+#### ipfs 
+#### ipfsdaemon
+#### ledger 
+#### menu
+#### wallet
