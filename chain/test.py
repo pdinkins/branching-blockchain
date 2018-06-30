@@ -31,11 +31,11 @@ os_id = os_name + os_platform
 print(os_id)
 
 def start():
-    if os.name == 'Windows':
+    if platform.system() == 'Windows':
         os.system("python -i test.py")
-    elif os.name == 'Darwin':
+    elif platform.system() == 'Darwin':
         os.system("py -i test.py")
-    elif os.name == "Linux":
+    elif platform.system() == "Linux":
         os.system("py -i test.py")
 
 
