@@ -1,17 +1,7 @@
-# Wallet
-# stores all functions relating to the user hash wallet
+'''
+# WALLET 
 
-# dyanmically stores data for wallet currently in use
-current_wallet = []
-wallet_data = []
-_system_architecture_dyna = []
-
-# dumps all dynamic data
-def dynamic_data_dump():
-    current_wallet.clear()
-    wallet_data.clear()
-    _system_architecture_dyna.clear()
-
+'''
 
 class NewWallet:
     def __init__(self):
@@ -38,11 +28,6 @@ class NewWallet:
             import subprocess
             import requests
             import time
-            import pynetwork.ipfs as ipfs
-             
-            #from classes import User, Idea
-            #import bloacks, bloacks, chain, client
-            #import generate, menu, writer, ledger
 
         except:
             print('FATAL__BUILD__ERROR')
@@ -81,16 +66,6 @@ class NewWallet:
             log(self._python_compiler)
 
             log('0_SYSTEM_CONFIGFILE')
-            self.n0osd = [
-                self._0_node_ip,
-                self._0_node_config,
-                self._system_architecture,
-                self.node,
-                self._python_build,
-                self._system,
-                self._python_compiler
-            ]
-            return self.n0osd
 
         except:
             print(datetime.datetime.now(), 'SYSTEM LOG')

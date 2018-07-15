@@ -62,7 +62,11 @@ class IPFS_add_file:
 
 
 
+
+
 '''
+TODO: Fix all of these functions lol 
+
 
 def add_file(filename):
     api = ipfsapi.connect(ipfsapi_ip, ipfsapi_port)

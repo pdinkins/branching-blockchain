@@ -2,8 +2,6 @@
 # environment for interacting with the network
 
 import menu, test
-import blocks, chain, classes
-import ipfs, ipfsdaemon, ledger
 
 
 def help_menu():
