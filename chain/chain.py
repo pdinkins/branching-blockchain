@@ -30,7 +30,10 @@ class Blockchain:
         return self.gb
 
     def new_block(self):
+        # pipe in the next nodes block data
         self.__block = self.__pipe_4_block()
+        
+        return self.__block
     
     def __pipe_4_block(self):
         return True

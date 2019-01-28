@@ -20,18 +20,18 @@ class Genesis_Block:
 
     def __init__(self, data):
         self.index = 0
-        self.data = data
-        self.timestamp = self._timestamp()
-        self.current_hash = self._current_hash()
+        self.genesis_data = data
+        self.timestamp = self.__timestamp()
+        self.current_hash = self.__current_hash()
     
-    def _timestamp(self):
+    def __timestamp(self):
         return self.datetime.datetime.now()
 
-    def _current_hash(self):
+    def __current_hash(self):
         sha = self.hasher.sha256()
         sha.update(str(self.index).encode('utf-8') + 
                    str(self.timestamp).encode('utf-8') + 
-                   str(self.data).encode('utf-8'))
+                   str(self.genesis_data).encode('utf-8'))
         return sha.hexdigest()
 
 class Block:

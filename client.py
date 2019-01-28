@@ -22,3 +22,6 @@ def clone_repo():
 def demo():
     system('py demo.py')
 
+
+def _menu_init():
+    _client.mm()
